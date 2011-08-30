@@ -5,13 +5,17 @@ CONTIKI_TARGET_MAIN = ${CONTIKI_CORE}.o
 CONTIKI_TARGET_SOURCEFILES += $(CONTIKI_CORE).c leds-arch.c adc.c button-sensor.c sensors.c temperature-sensor.c battery-sensor.c
 CONTIKI_AVR=$(CONTIKI)/cpu/avr
 CONTIKI_PLAT_DEFS = -DF_CPU=16000000UL -DAUTO_CRC_PADDING=2
-
+#MMP
+CONTIKIBOARD=.
 # Bring in Arduino core, or leave this blank if no core
-ARDUINO_CORE = $(HOME)/Zigduino/arduino/cores/zigduino
+#ARDUINO_CORE = $(HOME)/Zigduino/arduino/cores/zigduino
+ARDUINO_CORE = $(HOME)/zigduino
 ifneq ($(ARDUINO_CORE),) 
 CFLAGS += -I$(ARDUINO_CORE) -DARDUINO_CORE=1
 PROJECTDIRS += $(ARDUINO_CORE)
 PROJECT_SOURCEFILES += wiring_digital.c pins_arduino.c WInterrupts.c wiring_analog.c wiring.c
+else
+CFLAGS += -DARDUINO_CORE=0
 endif
 
 ifeq ($(WITH_SLIP),1)
@@ -21,8 +25,8 @@ endif
 
 MCU=atmega128rfa1
 
-AVRDUDE_PROGRAMMER=arduino
-AVRDUDE_PORT ?= /dev/tty.usbserial-A4009YFR
+AVRDUDE_PROGRAMMER=stk500v1
+AVRDUDE_PORT ?= /dev/ttyUSB0
 AVRDUDE_OPTIONS=-V -F -D -b 57600
 
 SERIAL_DUMP = $(CONTIKI)/tools/sky/serialdump-linux
