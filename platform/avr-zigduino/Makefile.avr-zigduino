@@ -9,7 +9,7 @@ CONTIKI_PLAT_DEFS = -DF_CPU=16000000UL -DAUTO_CRC_PADDING=2
 CONTIKIBOARD=.
 # Bring in Arduino core, or leave this blank if no core
 #ARDUINO_CORE = $(HOME)/Zigduino/arduino/cores/zigduino
-ARDUINO_CORE = $(HOME)/zigduino
+ARDUINO_CORE = $(CONTIKI)/platform/avr-zigduino/zigduino-core
 ifneq ($(ARDUINO_CORE),) 
 CFLAGS += -I$(ARDUINO_CORE) -DARDUINO_CORE=1
 PROJECTDIRS += $(ARDUINO_CORE)
